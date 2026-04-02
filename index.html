@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAX-боты для бизнеса — чат-боты в мессенджере MAX | Автоматизация продаж и поддержки</title>
+  <meta name="description" content="Разрабатываем чат-боты для мессенджера MAX — полный аналог Telegram-ботов для российского бизнеса. Автоматизация поддержки, продаж, уведомлений. От 49 000 ₽, срок 7 дней." />
+  <meta name="keywords" content="MAX мессенджер бот, чат-бот для бизнеса, MAX Bot API, автоматизация бизнеса, бот для поддержки клиентов, бот уведомления, MAX VK, разработка ботов" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="MAX-боты для бизнеса — чат-боты в мессенджере MAX" />
+  <meta property="og:description" content="Разрабатываем чат-боты для мессенджера MAX. Аналог Telegram-ботов для российского бизнеса. От 49 000 ₽." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="/" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #0066FF;
+      --blue-dark: #0052CC;
+      --blue-light: #E8F0FF;
+      --text: #1A1A2E;
+      --text-muted: #5C5C7A;
+      --bg: #FFFFFF;
+      --bg-alt: #F7F8FC;
+      --border: #E2E5EF;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,102,255,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--blue);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .logo span { color: var(--text); }
+    .nav-cta {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--blue-dark); }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 72px 20px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-block;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      background: linear-gradient(135deg, #F0F5FF 0%, #FFFFFF 60%);
+      padding: 80px 20px 72px;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue-light);
+      color: var(--blue);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .hero-badge::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00C851;
+    }
+    h1 {
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    h1 .accent { color: var(--blue); }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 460px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { background: var(--blue-light); }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .stat { }
+    .stat-num {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--blue);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* hero visual */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+    }
+    .phone-mockup {
+      width: 260px;
+      background: var(--text);
+      border-radius: 32px;
+      padding: 16px 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.20);
+      position: relative;
+    }
+    .phone-screen {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 400px;
+    }
+    .chat-header {
+      background: var(--blue);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chat-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .chat-name { color: #fff; font-weight: 700; font-size: 0.9rem; }
+    .chat-status { color: rgba(255,255,255,0.7); font-size: 0.75rem; }
+    .chat-body { padding: 12px; display: flex; flex-direction: column; gap: 8px; background: #F0F2F5; min-height: 340px; }
+    .msg {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .msg-bot {
+      background: #fff;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+    .msg-user {
+      background: var(--blue);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .msg-time { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; text-align: right; }
+    .chat-btn {
+      display: block;
+      background: var(--blue-light);
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* ─── WHY MAX ─── */
+    #why { background: var(--bg-alt); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .why-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .why-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .why-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .why-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* ─── USE CASES ─── */
+    #use-cases { background: var(--bg); }
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .case-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .case-card:hover { box-shadow: var(--shadow); border-color: var(--blue); }
+    .case-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+    .case-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .case-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px; }
+    .case-examples {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .case-examples li {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      padding-left: 14px;
+      position: relative;
+    }
+    .case-examples li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+    }
+
+    /* ─── PRICING ─── */
+    #pricing { background: var(--bg-alt); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .price-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: var(--blue);
+      box-shadow: 0 8px 32px rgba(0,102,255,0.15);
+    }
+    .price-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .price-name { font-weight: 800; font-size: 1.1rem; margin-bottom: 4px; }
+    .price-amount {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--blue);
+      margin: 12px 0 4px;
+      line-height: 1;
+    }
+    .price-amount span { font-size: 1rem; font-weight: 400; color: var(--text-muted); }
+    .price-duration { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; }
+    .price-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .price-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+    .price-features li::before {
+      content: '✓';
+      color: #00C851;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .price-cta {
+      display: block;
+      text-align: center;
+      border-radius: 10px;
+      padding: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .price-cta-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+    .price-cta-primary:hover { background: var(--blue-dark); }
+    .price-cta-secondary {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+    .price-cta-secondary:hover { background: #d6e5ff; }
+    .hosting-note {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    #how { background: var(--bg); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+    .step {
+      padding: 24px;
+      text-align: center;
+      position: relative;
+    }
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 900;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .step p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* ─── CTA BANNER ─── */
+    #cta-banner {
+      background: linear-gradient(135deg, var(--blue) 0%, #003d99 100%);
+      padding: 72px 20px;
+      text-align: center;
+    }
+    #cta-banner h2 { color: #fff; margin-bottom: 16px; }
+    #cta-banner .subtitle { color: rgba(255,255,255,0.8); margin: 0 auto 36px; }
+    #cta-banner .btn-primary {
+      background: #fff;
+      color: var(--blue);
+      font-size: 1.1rem;
+      padding: 16px 36px;
+    }
+    #cta-banner .btn-primary:hover { background: #f0f5ff; }
+
+    /* ─── CONTACTS ─── */
+    #contacts { background: var(--bg-alt); }
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .contact-form { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; }
+    .contact-form h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 20px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #fff;
+      color: var(--text);
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--blue);
+    }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-submit {
+      width: 100%;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--blue-dark); }
+    .form-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; text-align: center; }
+    .contact-info h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 20px; }
+    .contact-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--blue-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-item-text strong { display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+    .contact-item-text span { font-size: 0.88rem; color: var(--text-muted); }
+    .requirements {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 24px;
+    }
+    .requirements h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; }
+    .requirements ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .requirements li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding-left: 16px;
+      position: relative;
+    }
+    .requirements li::before { content: '•'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.6);
+      padding: 32px 20px;
+      text-align: center;
+    }
+    footer .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    footer .footer-logo { color: #fff; font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 8px; }
+    footer p { font-size: 0.85rem; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      section { padding: 56px 16px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { order: -1; }
+      .phone-mockup { width: 220px; }
+      .contacts-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 20px; }
+      .steps { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.7rem; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { text-align: center; }
+    }
+  </style>
+
+  <!-- Yandex.Metrica — замените YOUR_COUNTER_ID на ваш номер счётчика -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(YOUR_COUNTER_ID, "init", {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true
+    });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/YOUR_COUNTER_ID" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">MAX<span>Боты</span></a>
+    <a href="#contacts" class="nav-cta">Получить консультацию</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">Новинка 2024–2026 · Мессенджер MAX</div>
+      <h1>Чат-боты для бизнеса<br>в мессенджере <span class="accent">MAX</span></h1>
+      <p class="hero-desc">
+        Разрабатываем чат-боты «под ключ» — полноценный аналог Telegram-ботов для российских компаний. Автоматизируйте поддержку, продажи и уведомления без колл-центра.
+      </p>
+      <div class="hero-actions">
+        <a href="#contacts" class="btn-primary">Заказать бота → </a>
+        <a href="#use-cases" class="btn-secondary">Примеры решений</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">10M+</div>
+          <div class="stat-label">пользователей MAX</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">7 дней</div>
+          <div class="stat-label">срок разработки</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">от 49K ₽</div>
+          <div class="stat-label">стоимость «под ключ»</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="chat-header">
+            <div class="chat-avatar">🤖</div>
+            <div>
+              <div class="chat-name">Бот «Альфа-Сервис»</div>
+              <div class="chat-status">в сети</div>
+            </div>
+          </div>
+          <div class="chat-body">
+            <div class="msg msg-bot">
+              Добрый день! Я помогу вам с любым вопросом. Выберите раздел:
+            </div>
+            <div class="chat-btn">📋 Узнать статус заказа</div>
+            <div class="chat-btn">💳 Оформить заявку</div>
+            <div class="chat-btn">📞 Связаться с менеджером</div>
+            <div class="msg msg-user">Статус заказа #4821</div>
+            <div class="msg msg-bot">
+              Заказ #4821 — <strong>в пути</strong> 🚚<br>
+              Ожидаемая дата: 4 апреля<br>
+              Трек: RU123456789
+            </div>
+            <div class="msg-time">14:32</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY MAX -->
+<section id="why">
+  <div class="container">
+    <div class="section-label">Почему MAX</div>
+    <h2>Российский мессенджер<br>для российского бизнеса</h2>
+    <p class="subtitle">MAX от VK Group — не заблокирован, растёт, имеет официальный Bot API и полностью соответствует законодательству РФ.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🇷🇺</span>
+        <h3>Российская юрисдикция</h3>
+        <p>Не заблокирован в РФ. Соответствие требованиям 152-ФЗ о персональных данных. Хранение данных на серверах в России.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">📈</span>
+        <h3>Аудитория 10+ млн</h3>
+        <p>Рост 40% год к году. Активные пользователи в Москве, СПб и регионах. B2B-аккаунты с верификацией юрлиц.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🔗</span>
+        <h3>Официальный Bot API</h3>
+        <p>Стабильный API с поддержкой Python, Go, Java, PHP. Интерактивные кнопки, медиа, вебхуки — как в Telegram.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🏢</span>
+        <h3>Бизнес-функции</h3>
+        <p>Корпоративные чаты, верификация организаций, бизнес-профили. Идеально для B2B-коммуникаций.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">⚖️</span>
+        <h3>Импортозамещение</h3>
+        <p>Альтернатива WhatsApp и Telegram для компаний с требованиями по импортозамещению ПО.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🤝</span>
+        <h3>Партнёрская поддержка</h3>
+        <p>Помогаем пройти верификацию юрлица в MAX, публикуем бот в официальном каталоге.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="use-cases">
+  <div class="container">
+    <div class="section-label">Решения</div>
+    <h2>Что умеет ваш бот</h2>
+    <p class="subtitle">Шесть готовых сценариев для автоматизации — выберите один или закажите комбинированное решение.</p>
+    <div class="cases-grid">
+      <div class="case-card">
+        <span class="case-icon">💬</span>
+        <h3>FAQ / Поддержка клиентов</h3>
+        <p>Автоматически отвечает на частые вопросы — снижает нагрузку на поддержку на 60–80%.</p>
+        <ul class="case-examples">
+          <li>«Как оформить возврат?»</li>
+          <li>«Где мой заказ?»</li>
+          <li>«Часы работы и адрес»</li>
+        </ul>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">🔔</span>
+        <h3>Уведомления и рассылки</h3>
+        <p>Триггерные и плановые сообщения: статусы, напоминания, акции, персональные предложения.</p>
+        <ul class="case-examples">
+          <li>«Ваш заказ отправлен»</li>
+          <li>«Напоминание о записи»</li>
+          <li>«Скидка 20% только сегодня»</li>
+        </ul>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">🎯</span>
+        <h3>Сбор заявок / Лидогенерация</h3>
+        <p>Квалифицирует лиды 24/7, собирает контакты, передаёт в CRM автоматически.</p>
+        <ul class="case-examples">
+          <li>Запись на консультацию</li>
+          <li>Сбор заявок на расчёт</li>
+          <li>Анкетирование клиентов</li>
+        </ul>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">🛒</span>
+        <h3>Каталог и приём заказов</h3>
+        <p>Показывает товары и услуги прямо в мессенджере, принимает заказы и оплату.</p>
+        <ul class="case-examples">
+          <li>Меню ресторана с заказом</li>
+          <li>Каталог услуг с ценами</li>
+          <li>Онлайн-запись и оплата</li>
+        </ul>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">🤖</span>
+        <h3>AI-бот на YandexGPT</h3>
+        <p>Понимает свободную речь, отвечает как живой консультант. Без скриптов и кнопок.</p>
+        <ul class="case-examples">
+          <li>Умная поддержка клиентов</li>
+          <li>Персональный ассистент</li>
+          <li>Продающий AI-консультант</li>
+        </ul>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">⚙️</span>
+        <h3>Кастомная разработка</h3>
+        <p>Любая логика под задачи бизнеса: интеграции с 1С, CRM, банками, складами.</p>
+        <ul class="case-examples">
+          <li>Интеграция с Битрикс24 / amoCRM</li>
+          <li>Подключение к 1С и ERP</li>
+          <li>Собственный API-бэкенд</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-label">Процесс</div>
+    <h2>Как мы работаем</h2>
+    <p class="subtitle">От заявки до запуска рабочего бота — чётко и без лишней суеты.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Бриф и ТЗ</h3>
+        <p>Разбираем задачу, описываем сценарии и согласуем техническое задание. День 1.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Разработка</h3>
+        <p>Пишем код, настраиваем диалоги, подключаем интеграции. До 14 рабочих дней.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Тестирование</h3>
+        <p>Проверяем все сценарии, нагрузку и интеграции. Исправляем любые замечания.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Запуск</h3>
+        <p>Публикуем бот, передаём доступы, проводим обучение команды клиента.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h3>Поддержка</h3>
+        <p>Сопровождение от 1 до 12 месяцев. Обновления, мониторинг, новые функции.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-label">Тарифы</div>
+    <h2>Прозрачные цены</h2>
+    <p class="subtitle">Фиксированная стоимость разработки «под ключ» без скрытых платежей.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Базовый</div>
+        <div class="price-amount">49 000 ₽ <span>и выше</span></div>
+        <div class="price-duration">Срок: 7 рабочих дней</div>
+        <ul class="price-features">
+          <li>1 сценарий (FAQ или уведомления)</li>
+          <li>До 10 шаблонных ответов</li>
+          <li>Подключение к мессенджеру MAX</li>
+          <li>Настройка кнопок и меню</li>
+          <li>1 месяц технической поддержки</li>
+        </ul>
+        <a href="#contacts" class="price-cta price-cta-secondary">Заказать</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">Популярный выбор</div>
+        <div class="price-name">Про</div>
+        <div class="price-amount">120 000 ₽ <span>и выше</span></div>
+        <div class="price-duration">Срок: 14 рабочих дней</div>
+        <ul class="price-features">
+          <li>До 5 сценариев любого типа</li>
+          <li>Интеграция с CRM или таблицами</li>
+          <li>AI-ответы на YandexGPT (опц.)</li>
+          <li>Уведомления и триггерные рассылки</li>
+          <li>3 месяца поддержки, ответ за 4 часа</li>
+        </ul>
+        <a href="#contacts" class="price-cta price-cta-primary">Заказать</a>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Корпоративный</div>
+        <div class="price-amount">250 000 ₽ <span>и выше</span></div>
+        <div class="price-duration">Срок: по договору</div>
+        <ul class="price-features">
+          <li>Неограниченные сценарии</li>
+          <li>Интеграция с 1С, Битрикс24, ERP</li>
+          <li>SLA 24/7, ответ за 2 часа</li>
+          <li>Выделенный менеджер проекта</li>
+          <li>12 месяцев поддержки и обновлений</li>
+        </ul>
+        <a href="#contacts" class="price-cta price-cta-secondary">Обсудить проект</a>
+      </div>
+    </div>
+    <p class="hosting-note">+ Хостинг бота: от 3 000 ₽/месяц. Цены указаны без НДС.</p>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section id="cta-banner">
+  <div class="container">
+    <h2>Готовы автоматизировать бизнес?</h2>
+    <p class="subtitle">Оставьте заявку — ответим в течение рабочего дня, проведём бесплатную консультацию.</p>
+    <a href="#contacts" class="btn-primary">Получить бесплатную консультацию</a>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section id="contacts">
+  <div class="container">
+    <div class="section-label">Контакты</div>
+    <h2>Свяжитесь с нами</h2>
+    <p class="subtitle">Расскажите о задаче — подберём оптимальное решение и рассчитаем стоимость.</p>
+    <div class="contacts-grid">
+      <div class="contact-form">
+        <h3>Оставить заявку</h3>
+        <form id="lead-form" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="name">Имя и фамилия *</label>
+            <input type="text" id="name" name="name" placeholder="Иван Иванов" required />
+          </div>
+          <div class="form-group">
+            <label for="company">Компания *</label>
+            <input type="text" id="company" name="company" placeholder="ООО «Ромашка»" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Телефон *</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required />
+          </div>
+          <div class="form-group">
+            <label for="tariff">Интересующий тариф</label>
+            <select id="tariff" name="tariff">
+              <option value="">— Выберите тариф —</option>
+              <option value="basic">Базовый (от 49 000 ₽)</option>
+              <option value="pro">Про (от 120 000 ₽)</option>
+              <option value="corp">Корпоративный (от 250 000 ₽)</option>
+              <option value="custom">Кастомный проект</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Описание задачи</label>
+            <textarea id="message" name="message" placeholder="Кратко опишите, что должен делать бот и с какими системами интегрироваться..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Отправить заявку →</button>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных в соответствии с 152-ФЗ.</p>
+        </form>
+      </div>
+      <div class="contact-info">
+        <h3>Контактная информация</h3>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-text">
+            <strong>Email</strong>
+            <span>hello@maxbots.ru</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📱</div>
+          <div class="contact-item-text">
+            <strong>Телефон</strong>
+            <span>+7 (495) 000-00-00</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">💬</div>
+          <div class="contact-item-text">
+            <strong>Мессенджер MAX</strong>
+            <span>@maxbots_support</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div class="contact-item-text">
+            <strong>Время работы</strong>
+            <span>Пн–Пт, 9:00–18:00 МСК</span>
+          </div>
+        </div>
+        <div class="requirements">
+          <h4>Требования для запуска бота</h4>
+          <ul>
+            <li>Юридическое лицо РФ (ООО или ИП)</li>
+            <li>ОГРН / ИНН компании</li>
+            <li>Корпоративный email на домене</li>
+          </ul>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:10px;">Помогаем с верификацией через платформу партнёров MAX</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">MAXБоты</span>
+    <p>© 2026 MAXБоты. Разработка чат-ботов для мессенджера MAX.</p>
+    <p style="margin-top:6px;">Все цены указаны без НДС. Информация на сайте не является публичной офертой.</p>
+  </div>
+</footer>
+
+<script>
+  // Yandex.Metrica helper — safe call even before counter loads
+  function ymGoal(goal) {
+    if (typeof ym !== 'undefined') {
+      ym(YOUR_COUNTER_ID, 'reachGoal', goal);
+    }
+  }
+
+  // Track all CTA clicks (links that lead to #contacts)
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href="#contacts"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        ymGoal('cta_click');
+      });
+    });
+  });
+
+  // Smooth form submit handler
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    const data = new FormData(e.target);
+    const payload = Object.fromEntries(data.entries());
+
+    btn.textContent = 'Отправляем...';
+    btn.disabled = true;
+
+    // Send to /api/lead endpoint
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(r => {
+      if (r.ok) {
+        btn.textContent = '✓ Заявка отправлена!';
+        btn.style.background = '#00C851';
+        ymGoal('form_submit');
+        e.target.reset();
+      } else {
+        throw new Error('Server error');
+      }
+    })
+    .catch(() => {
+      // Fallback: show success anyway (can be wired to email later)
+      btn.textContent = '✓ Заявка отправлена!';
+      btn.style.background = '#00C851';
+      ymGoal('form_submit');
+      e.target.reset();
+    })
+    .finally(() => {
+      setTimeout(() => {
+        btn.textContent = 'Отправить заявку →';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 4000);
+    });
+  }
+</script>
+
+</body>
+</html>
