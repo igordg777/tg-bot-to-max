@@ -1098,6 +1098,99 @@
       .phone-frame { width: 230px; }
       .phone-screen { height: 440px; }
     }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+    }
+    .modal h3 {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .modal .modal-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal .field { margin-bottom: 16px; }
+    .modal .field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .modal .field input {
+      width: 100%;
+      background: var(--dark-3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .modal .field input:focus { border-color: var(--teal); }
+    .modal .field input::placeholder { color: var(--text-muted); }
+    .modal-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dim));
+      color: #080C18;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.2s;
+    }
+    .modal-submit:hover { opacity: 0.9; }
+    .modal-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 10px;
+    }
+    .modal-success { text-align: center; padding: 8px 0 0; }
+    .modal-success .check { font-size: 2.5rem; margin-bottom: 12px; }
+    .modal-success p { color: var(--text-muted); font-size: 0.95rem; }
   </style>
 </head>
 <body>
@@ -1559,9 +1652,13 @@
       <h2>Запустите бота за&nbsp;<span style="color:var(--teal)">7 дней</span></h2>
       <p>Оставьте заявку — расскажем, какой бот подойдёт вашему бизнесу, и сделаем расчёт стоимости бесплатно.</p>
       <div class="cta-actions">
-        <a href="mailto:hello@maxbots.ru" class="btn-primary">Написать нам</a>
-        <a href="tel:+78001234567" class="btn-secondary">+7 (800) 123-45-67</a>
+        <button class="btn-primary" onclick="openModal()">Написать нам</button>
+        <a href="tel:88003008305" class="btn-secondary">8 (800) 300-83-05</a>
       </div>
+      <p style="margin-top:16px;font-size:0.88rem;color:var(--text-muted);">
+        Или напишите нам на
+        <a href="mailto:it.rooms.coliving@gmail.com" style="color:var(--teal);text-decoration:none;">it.rooms.coliving@gmail.com</a>
+      </p>
       <p class="cta-note">Без навязчивых продаж · Ответим в течение 2 часов</p>
     </div>
   </div>
@@ -1580,7 +1677,56 @@
   </div>
 </footer>
 
+<!-- ─── CONTACT MODAL ─── -->
+<div class="modal-overlay" id="contactModal" onclick="closeModalOnOverlay(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Закрыть">&times;</button>
+    <div id="modalForm">
+      <h3>Написать нам</h3>
+      <p class="modal-sub">Оставьте контакты — ответим в течение 2 часов.</p>
+      <form onsubmit="submitModal(event)">
+        <div class="field">
+          <label for="m-name">Имя</label>
+          <input type="text" id="m-name" name="name" placeholder="Иван Иванов" required />
+        </div>
+        <div class="field">
+          <label for="m-phone">Телефон</label>
+          <input type="tel" id="m-phone" name="phone" placeholder="8 (___) ___-__-__" required />
+        </div>
+        <button type="submit" class="modal-submit">Отправить →</button>
+        <p class="modal-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.</p>
+      </form>
+    </div>
+    <div id="modalSuccess" class="modal-success" style="display:none;">
+      <div class="check">✅</div>
+      <h3>Заявка отправлена!</h3>
+      <p>Свяжемся с вами в течение 2 часов.</p>
+    </div>
+  </div>
+</div>
+
 <script>
+  function openModal() {
+    document.getElementById('contactModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('contactModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOnOverlay(e) {
+    if (e.target === document.getElementById('contactModal')) closeModal();
+  }
+  function submitModal(e) {
+    e.preventDefault();
+    document.getElementById('modalForm').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+    setTimeout(closeModal, 2500);
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
   // Intersection Observer for fade-in animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
