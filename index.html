@@ -822,6 +822,76 @@
     }
     .footer-links a:hover { color: var(--teal); }
 
+    /* ─── MIGRATION SECTION ─── */
+    #migration {
+      background: var(--dark-2);
+    }
+    .migration-intro {
+      max-width: 680px;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+    .migration-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .migration-card {
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .migration-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--orange-dim));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .migration-card:hover {
+      border-color: rgba(255,106,47,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,106,47,0.08);
+    }
+    .migration-card:hover::before { opacity: 1; }
+    .migration-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .migration-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+    .migration-desc {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .migration-cta {
+      text-align: center;
+    }
+    .migration-cta-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    @media (max-width: 900px) {
+      .migration-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .migration-grid { grid-template-columns: 1fr; }
+    }
+
     /* ─── ANIMATIONS ─── */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -1072,6 +1142,53 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MIGRATION PAIN POINTS ─── -->
+<section id="migration">
+  <div class="container">
+    <div class="migration-intro">
+      <div class="label-tag">Критически важно</div>
+      <h2>Почему вашему бизнесу нужно переводить бота в MAX</h2>
+      <p class="section-sub">Telegram-боты работают сегодня. Но риски уже есть. Вот что стоит за каждым днём промедления.</p>
+    </div>
+    <div class="migration-grid">
+      <div class="migration-card fade-in">
+        <span class="migration-icon">⚡</span>
+        <div class="migration-title">Ваш Telegram-бот может перестать работать в любой день</div>
+        <div class="migration-desc">Telegram периодически замедляется и блокируется в России. Один инцидент — и весь поток входящих клиентов обрывается. Без предупреждения, без резервного канала.</div>
+      </div>
+      <div class="migration-card fade-in">
+        <span class="migration-icon">👻</span>
+        <div class="migration-title">Часть клиентов уже не видит ваш бот</div>
+        <div class="migration-desc">У 20–30% российских пользователей Telegram работает с перебоями или заблокирован на корпоративных устройствах. Вы теряете этих людей тихо — они просто не доходят до вас.</div>
+      </div>
+      <div class="migration-card fade-in">
+        <span class="migration-icon">🏁</span>
+        <div class="migration-title">Конкуренты уже занимают аудиторию в MAX</div>
+        <div class="migration-desc">Пока вы раздумываете, другие компании вашей ниши выходят в MAX первыми. Первые получат преимущество видимости — опоздавшие заплатят за это долей рынка.</div>
+      </div>
+      <div class="migration-card fade-in">
+        <span class="migration-icon">💀</span>
+        <div class="migration-title">При блокировке вы потеряете базу навсегда</div>
+        <div class="migration-desc">Ваша база подписчиков в Telegram — не ваша собственность. При полной блокировке мессенджера вы потеряете контакт с тысячами клиентов, которых собирали годами.</div>
+      </div>
+      <div class="migration-card fade-in">
+        <span class="migration-icon">⚖️</span>
+        <div class="migration-title">Работа через иностранный мессенджер — это риск</div>
+        <div class="migration-desc">Требования 152-ФЗ к локализации персональных данных усиливаются. MAX — российская платформа VK Group, изначально соответствующая всем нормативам без дополнительных костылей.</div>
+      </div>
+      <div class="migration-card fade-in">
+        <span class="migration-icon">📲</span>
+        <div class="migration-title">MAX уже там, где ваши клиенты завтра</div>
+        <div class="migration-desc">10+ млн пользователей, рост 40% в год. MAX активно продвигается государством и бизнесом как замена иностранным мессенджерам. Аудитория переходит — идите с ней.</div>
+      </div>
+    </div>
+    <div class="migration-cta">
+      <p class="migration-cta-label">Каждый день промедления — потенциальные клиенты, которых вы не получили</p>
+      <a href="#cta" class="btn-primary">Перенести бота сейчас</a>
     </div>
   </div>
 </section>
